@@ -11,7 +11,7 @@ type AuthConfig struct {
 	file         string             `json:"-"`
 	OAuth2Config *oauth2.Config     `json:"oauth2.Config"`
 	OAuth2Token  *oauth2.Token      `json:"oauth2.Token"`
-	tokenSource  oauth2.TokenSource `json:"-"`
+	TokenSource  oauth2.TokenSource `json:"-"`
 	Auth         Auth               `json:"gads.Auth"`
 }
 
@@ -24,7 +24,7 @@ func NewCredentials(ctx context.Context) (ac AuthConfig, err error) {
 		return ac, err
 	}
 	ac.file = *configJson
-	ac.tokenSource = ac.OAuth2Config.TokenSource(ctx, ac.OAuth2Token)
+	ac.TokenSource = ac.OAuth2Config.TokenSource(ctx, ac.OAuth2Token)
 	ac.Auth.Client = ac.OAuth2Config.Client(ctx, ac.OAuth2Token)
 	return ac, err
 }
@@ -48,7 +48,7 @@ func (c AuthConfig) Token() (token *oauth2.Token, err error) {
 	}
 
 	// get new token from tokens source and store
-	c.OAuth2Token, err = c.tokenSource.Token()
+	c.OAuth2Token, err = c.TokenSource.Token()
 	if err != nil {
 		return nil, err
 	}
