@@ -128,7 +128,7 @@ type Campaign struct {
 	ServingStatus                  *string                         `xml:"servingStatus,omitempty"` // ServingStatus: "SERVING", "NONE", "ENDED", "PENDING", "SUSPENDED"
 	StartDate                      string                          `xml:"startDate"`
 	EndDate                        *string                         `xml:"endDate,omitempty"`
-	BudgetId                       int64                           `xml:"budget>budgetId"`
+	Budget                         *Budget                         `xml:"budget"`
 	ConversionOptimizerEligibility *conversionOptimizerEligibility `xml:"conversionOptimizerEligibility"`
 	AdServingOptimizationStatus    string                          `xml:"adServingOptimizationStatus"`
 	FrequencyCap                   *FrequencyCap                   `xml:"frequencyCap"`

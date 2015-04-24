@@ -99,6 +99,31 @@ func (s *AdGroupService) Get(selector Selector) (adGroups []AdGroup, totalCount 
 			Sel: selector,
 		},
 	)
+
+	//FOR tests
+	//      err = nil
+	//      respBody := `<getResponse xmlns="https://adwords.google.com/api/adwords/cm/v201409">
+	//      <rval>
+	//              <totalNumEntries>1</totalNumEntries>
+	//              <Page.Type>AdGroupPage</Page.Type>
+	//              <entries>
+	//                      <id>17735387220</id>
+	//                      <name>MMMMMM</name>
+	//                      <biddingStrategyConfiguration>
+	//                              <biddingStrategyType>MANUAL_CPM</biddingStrategyType>
+	//                              <bids xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CpmBid">
+	//                                      <Bids.Type>CpmBid</Bids.Type>
+	//                                      <bid>
+	//                                              <ComparableValue.Type>Money</ComparableValue.Type>
+	//                                              <microAmount>1000000</microAmount>
+	//                                      </bid>
+	//                                      <cpmBidSource>ADGROUP</cpmBidSource>
+	//                              </bids>
+	//                      </biddingStrategyConfiguration>
+	//              </entries>
+	//      </rval>
+	// </getResponse>`
+
 	if err != nil {
 		return adGroups, totalCount, err
 	}
