@@ -2,8 +2,9 @@ package gads
 
 import (
 	"fmt"
-	"golang.org/x/net/context"
 	"time"
+
+	"golang.org/x/net/context"
 )
 
 func ExampleCampaignService_Get() {
@@ -67,7 +68,9 @@ func ExampleCampaignService_Mutate() {
 						StrategyType: "MANUAL_CPC",
 					},
 					// Budget (required) - note only the budget ID is required
-					BudgetId:               budgetId,
+					Budget: &Budget{
+						Id: budgetId,
+					},
 					AdvertisingChannelType: "SEARCH",
 					// Optional Fields:
 					StartDate:                   time.Now().Format("20060102"),
@@ -97,7 +100,9 @@ func ExampleCampaignService_Mutate() {
 						StrategyType: "MANUAL_CPC",
 					},
 					// Budget (required) - note only the budget ID is required
-					BudgetId:               budgetId,
+					Budget: &Budget{
+						Id: budgetId,
+					},
 					AdvertisingChannelType: "DISPLAY",
 				},
 			},
