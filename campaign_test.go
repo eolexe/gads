@@ -17,10 +17,10 @@ func testCampaign(t *testing.T) (Campaign, func()) {
 		CampaignOperations{
 			"ADD": {
 				Campaign{
-					Name:                        "test campaign " + rand_str(10),
-					Status:                      "PAUSED",
-					StartDate:                   time.Now().Format("20060102"),
-					BudgetId:                    budget.Id,
+					Name:      "test campaign " + rand_str(10),
+					Status:    "PAUSED",
+					StartDate: time.Now().Format("20060102"),
+					Budget:    &budget,
 					AdServingOptimizationStatus: "ROTATE_INDEFINITELY",
 					Settings: []CampaignSetting{
 						NewRealTimeBiddingSetting(true),
@@ -56,10 +56,10 @@ func TestCampaign(t *testing.T) {
 		CampaignOperations{
 			"ADD": {
 				Campaign{
-					Name:                        "test campaign " + rand_str(10),
-					Status:                      "PAUSED",
-					StartDate:                   time.Now().Format("20060102"),
-					BudgetId:                    budget.Id,
+					Name:      "test campaign " + rand_str(10),
+					Status:    "PAUSED",
+					StartDate: time.Now().Format("20060102"),
+					Budget:    &budget,
 					AdServingOptimizationStatus: "ROTATE_INDEFINITELY",
 					Settings: []CampaignSetting{
 						NewRealTimeBiddingSetting(true),
