@@ -1,0 +1,23 @@
+{
+    "oauth2.Config": {
+        "ClientID": "647744382516-3397k000ul84ldl5840lmqrhoj3ru2s9.apps.googleusercontent.com",
+        "ClientSecret": "FFKh59CHSeiOlz15r3y4r6jB",
+        "Endpoint": {
+            "AuthURL": "https://accounts.google.com/o/oauth2/auth",
+            "TokenURL": "https://accounts.google.com/o/oauth2/token"
+        },
+        "RedirectURL": "urn:ietf:wg:oauth:2.0:oob",
+        "Scopes": [
+            "https://adwords.google.com/api/adwords"
+        ]
+    },
+    "oauth2.Token": {
+        "token_type": "Bearer",
+        "refresh_token": "1/_zN9SlPdfw1JbUZIeg3JTyYfuY-6tv9Zs7_qoCuFjYw"
+    },
+    "gads.Auth": {
+        "CustomerId": "2457832181",
+        "DeveloperToken": "r1I6Ae0_dr29I6K67afdaA",
+        "UserAgent": "dev.switchboardonline.com:Development"
+    }
+}
