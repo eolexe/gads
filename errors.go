@@ -132,3 +132,14 @@ func (f *ErrorsType) Error() string {
 	}
 	return strings.Join(errors, "\n")
 }
+
+type ReportDownloadError struct {
+	XMLName   xml.Name `xml:"reportDownloadError"`
+	Type      string   `xml:"ApiError>type"`
+	Trigger   string   `xml:"ApiError>trigger"`
+	FieldPath string   `xml:"ApiError>fieldPath"`
+}
+
+func (f ReportDownloadError) Error() string {
+	return fmt.Sprintf("Type = '%s', Trigger = '%s', FieldPath = '%s'", f.Type, f.Trigger, f.FieldPath)
+}
