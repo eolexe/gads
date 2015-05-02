@@ -33,11 +33,12 @@ const (
 
 type CampaignReport struct {
 	XMLName xml.Name       `xml:"report"`
-	Row     []*CampaignRow `xml:"table>row"`
+	Rows    []*CampaignRow `xml:"table>row"`
 }
 
 type CampaignRow struct {
 	XMLName     xml.Name `xml:"row"`
+	Day         string   `xml:"day,attr"`
 	AvgCPC      int64    `xml:"avgCPC,attr"`
 	AvgCPM      int64    `xml:"avgCPM,attr"`
 	CampaignID  int64    `xml:"campaignID,attr"`
@@ -48,7 +49,7 @@ type CampaignRow struct {
 
 type BudgetReport struct {
 	XMLName xml.Name     `xml:"report"`
-	Row     []*BudgetRow `xml:"table>row"`
+	Rows    []*BudgetRow `xml:"table>row"`
 }
 
 type BudgetRow struct {

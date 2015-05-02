@@ -96,7 +96,7 @@ type BiddingScheme struct {
 
 type Bid struct {
 	Type         string  `xml:"http://www.w3.org/2001/XMLSchema-instance type,attr"`
-	Amount       int64   `xml:"bid>microAmount"`
+	Amount       float64   `xml:"bid>microAmount"`
 	CpcBidSource *string `xml:"cpcBidSource"`
 	CpmBidSource *string `xml:"cpmBidSource"`
 }
