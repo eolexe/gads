@@ -39,11 +39,11 @@ type CampaignReport struct {
 type CampaignRow struct {
 	XMLName     xml.Name `xml:"row"`
 	Day         string   `xml:"day,attr"`
-	AvgCPC      int64    `xml:"avgCPC,attr"`
-	AvgCPM      int64    `xml:"avgCPM,attr"`
+	AvgCPC      float64  `xml:"avgCPC,attr"`
+	AvgCPM      float64  `xml:"avgCPM,attr"`
 	CampaignID  int64    `xml:"campaignID,attr"`
 	Clicks      int64    `xml:"clicks,attr"`
-	Cost        int64    `xml:"cost,attr"`
+	Cost        float64  `xml:"cost,attr"`
 	Impressions int64    `xml:"impressions,attr"`
 }
 
@@ -54,11 +54,11 @@ type BudgetReport struct {
 
 type BudgetRow struct {
 	XMLName     xml.Name `xml:"row"`
-	AvgCPC      int64    `xml:"avgCPC,attr"`
-	AvgCPM      int64    `xml:"avgCPM,attr"`
+	AvgCPC      float64  `xml:"avgCPC,attr"`
+	AvgCPM      float64  `xml:"avgCPM,attr"`
 	CampaignID  int64    `xml:"campaignID,attr"`
 	Clicks      int64    `xml:"clicks,attr"`
-	Cost        int64    `xml:"cost,attr"`
+	Cost        float64  `xml:"cost,attr"`
 	Impressions int64    `xml:"impressions,attr"`
 	Conversions int64    `xml:"conversions,attr"`
 }
