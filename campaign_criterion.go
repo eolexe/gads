@@ -45,8 +45,9 @@ func (cc CampaignCriterion) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 type NegativeCampaignCriterion struct {
 	CampaignId  int64     `xml:"campaignId"`
 	Criterion   Criterion `xml:"criterion"`
-	BidModifier float64   `xml:"bidModifier,omitempty"`
+	BidModifier *float64   `xml:"bidModifier,omitempty"`
 	Errors      []error   `xml:"-"`
+
 }
 
 type CampaignCriterions []interface{}
@@ -89,7 +90,7 @@ func (ccs *CampaignCriterions) UnmarshalXML(dec *xml.Decoder, start xml.StartEle
 					return err
 				}
 				cc.Criterion = criterion
-			case "BidModifier":
+			case "bidModifier":
 				if err := dec.DecodeElement(&cc.BidModifier, &start); err != nil {
 					return err
 				}
@@ -148,6 +149,9 @@ func (s *CampaignCriterionService) Get(selector Selector) (campaignCriterions Ca
 			Sel: selector,
 		},
 	)
+
+//	respBody := `<getResponse xmlns="https://adwords.google.com/api/adwords/cm/v201409"><rval><totalNumEntries>8</totalNumEntries><Page.Type>CampaignCriterionPage</Page.Type><entries><campaignId>210576900</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30000</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>210576900</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30001</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><bidModifier>2.319999933242798</bidModifier><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>210576900</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30002</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>210576900</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Location"><id>1023191</id><type>LOCATION</type><Criterion.Type>Location</Criterion.Type><locationName>New York</locationName><displayType>City</displayType><targetingStatus>ACTIVE</targetingStatus><parentLocations><id>2840</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>21167</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>200501</id><Criterion.Type>Location</Criterion.Type></parentLocations></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>231500820</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30000</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>231500820</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30001</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>231500820</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Platform"><id>30002</id><type>PLATFORM</type><Criterion.Type>Platform</Criterion.Type></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries><entries><campaignId>231500820</campaignId><isNegative>false</isNegative><criterion xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Location"><id>9007534</id><type>LOCATION</type><Criterion.Type>Location</Criterion.Type><locationName>20010</locationName><displayType>Postal Code</displayType><targetingStatus>ACTIVE</targetingStatus><parentLocations><id>2840</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>21140</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>200511</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>1014895</id><Criterion.Type>Location</Criterion.Type></parentLocations><parentLocations><id>9040468</id><Criterion.Type>Location</Criterion.Type></parentLocations></criterion><CampaignCriterion.Type>CampaignCriterion</CampaignCriterion.Type></entries></rval></getResponse>`
+
 	if err != nil {
 		return campaignCriterions, totalCount, err
 	}

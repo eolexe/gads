@@ -119,6 +119,8 @@ type PlacementCriterion struct {
 type PlatformCriterion struct {
 	Id           int64  `xml:"id,omitempty"`
 	PlatformName string `xml:"platformName,omitempty"`
+	Type string `xml:"type,omitempty"`
+	CriterionType string `xml:"Criterion.Type,omitempty"`
 }
 
 // Argument:
@@ -172,7 +174,8 @@ type UserListCriterion struct {
 }
 
 type VerticalCriterion struct {
-	Id       int64    `xml:"verticalId,omitempty"`
+	Id       int64    `xml:"id,omitempty"`
+	VerticalId int64    `xml:"verticalId"`
 	ParentId int64    `xml:"verticalParentId"`
 	Path     []string `xml:"path"`
 }

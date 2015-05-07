@@ -107,21 +107,21 @@ func (s *ReportUtils) DownloadCampaignPerformaceReport(reportDefinition *ReportD
 		reportDefinition,
 	)
 
-//	respBody := `<report>
-//		<report-name name="Campaign Performance Report NAme" />
-//		<date-range date="Feb 1, 2015-Jun 1, 2015" />
-//		<table>
-//			<columns>
-//				<column name="campaignID" display="Campaign ID" />
-//				<column name="clicks" display="Clicks" />
-//				<column name="impressions" display="Impressions" />
-//				<column name="week" display="Week" />
-//			</columns>
-//			<row day="20150201" campaignID="1111111" clicks="%v" cost="8" impressions="18"/>
-//			<row day="20150215" campaignID="1111111" clicks="%v" cost="4" impressions="10"/>
-//			<row day="20150230" campaignID="1111111" clicks="%v" cost="12" impressions="29"/>
-//		</table>
-//	</report>`
+	//	respBody := `<report>
+	//		<report-name name="Campaign Performance Report NAme" />
+	//		<date-range date="Feb 1, 2015-Jun 1, 2015" />
+	//		<table>
+	//			<columns>
+	//				<column name="campaignID" display="Campaign ID" />
+	//				<column name="clicks" display="Clicks" />
+	//				<column name="impressions" display="Impressions" />
+	//				<column name="week" display="Week" />
+	//			</columns>
+	//			<row day="20150201" campaignID="1111111" clicks="%v" cost="8" impressions="18"/>
+	//			<row day="20150215" campaignID="1111111" clicks="%v" cost="4" impressions="10"/>
+	//			<row day="20150230" campaignID="1111111" clicks="%v" cost="12" impressions="29"/>
+	//		</table>
+	//	</report>`
 
 	if err != nil {
 		return report, err
@@ -144,24 +144,24 @@ func (s *ReportUtils) DownloadBudgetPerformanceReport(reportDefinition *ReportDe
 		reportDefinition,
 	)
 
-//	respBody := `<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
-//	<report>
-//		<report-name name="Report #553f5265b3d84"/>
-//		<date-range date="All Time"/>
-//		<table>
-//			<columns>
-//				<column display="Campaign ID" name="campaignID"/>
-//				<column display="Avg. CPC" name="avgCPC"/>
-//				<column display="Avg. CPM" name="avgCPM"/>
-//				<column display="Cost" name="cost"/>
-//				<column display="Clicks" name="clicks"/>
-//				<column display="Impressions" name="impressions"/>
-//			</columns>
-//			<row campaignID='1111' avgCPC='1' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
-//			<row campaignID='1111' avgCPC='2' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
-//			<row campaignID='1111' avgCPC='3' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
-//		</table>
-//	</report>`
+	//	respBody := `<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+	//	<report>
+	//		<report-name name="Report #553f5265b3d84"/>
+	//		<date-range date="All Time"/>
+	//		<table>
+	//			<columns>
+	//				<column display="Campaign ID" name="campaignID"/>
+	//				<column display="Avg. CPC" name="avgCPC"/>
+	//				<column display="Avg. CPM" name="avgCPM"/>
+	//				<column display="Cost" name="cost"/>
+	//				<column display="Clicks" name="clicks"/>
+	//				<column display="Impressions" name="impressions"/>
+	//			</columns>
+	//			<row campaignID='1111' avgCPC='1' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
+	//			<row campaignID='1111' avgCPC='2' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
+	//			<row campaignID='1111' avgCPC='3' avgCPM='2' cost='3' clicks='5' impressions='7' convertedClicks='3'/>
+	//		</table>
+	//	</report>`
 
 	if err != nil {
 		return report, err

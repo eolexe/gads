@@ -7,6 +7,7 @@ import (
 
 type BiddableAdGroupCriterion struct {
 	AdGroupId int64     `xml:"adGroupId"`
+	CriterionUse string `xml:"criterionUse"`
 	Criterion Criterion `xml:"criterion"`
 
 	// BiddableAdGroupCriterion
@@ -59,6 +60,10 @@ func (bagc *BiddableAdGroupCriterion) UnmarshalXML(dec *xml.Decoder, start xml.S
 			switch tag {
 			case "adGroupId":
 				if err := dec.DecodeElement(&bagc.AdGroupId, &start); err != nil {
+					return err
+				}
+			case "criterionUse":
+				if err := dec.DecodeElement(&bagc.CriterionUse, &start); err != nil {
 					return err
 				}
 			case "criterion":
