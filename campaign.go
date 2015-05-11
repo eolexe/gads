@@ -130,7 +130,7 @@ type Campaign struct {
 	EndDate                        *string                         `xml:"endDate,omitempty"`
 	Budget                         *Budget                         `xml:"budget"`
 	ConversionOptimizerEligibility *conversionOptimizerEligibility `xml:"conversionOptimizerEligibility"`
-	AdServingOptimizationStatus    string                          `xml:"adServingOptimizationStatus"`
+	AdServingOptimizationStatus    string                          `xml:"adServingOptimizationStatus,omitempty"`
 	FrequencyCap                   *FrequencyCap                   `xml:"frequencyCap"`
 	Settings                       []CampaignSetting               `xml:"settings"`
 	AdvertisingChannelType         string                          `xml:"advertisingChannelType,omitempty"`    // "UNKNOWN", "SEARCH", "DISPLAY", "SHOPPING"

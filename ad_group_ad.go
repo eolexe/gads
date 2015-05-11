@@ -2,6 +2,7 @@ package gads
 
 import (
 	"encoding/xml"
+	"fmt"
 )
 
 type AdGroupAdService struct {
@@ -34,6 +35,11 @@ type TextAd struct {
 	Labels               []Label           `xml:"-"`
 }
 
+type ImageAdUrls struct {
+	Key   string `xml:"key"`
+	Value string `xml:"value"`
+}
+
 type ImageAd struct {
 	AdGroupId            int64             `xml:"-"`
 	Id                   int64             `xml:"id,omitempty"`
@@ -46,6 +52,8 @@ type ImageAd struct {
 	UrlCustomParameters  *CustomParameters `xml:"urlCustomParameters,omitempty"`
 	DevicePreference     int64             `xml:"devicePreference,omitempty"`
 	Image                int64             `xml:"imageId"`
+	Urls                 []*ImageAdUrls    `xml:"image>urls"`
+	MimeType             string            `xml:"image>mimeType"`
 	Name                 string            `xml:"name"`
 	AdToCopyImageFrom    int64             `xml:"adToCopyImageFrom"`
 	Status               string            `xml:"-"`
@@ -216,10 +224,13 @@ func (s AdGroupAdService) Get(selector Selector) (adGroupAds AdGroupAds, totalCo
 	if err != nil {
 		return adGroupAds, totalCount, err
 	}
+
+	//	respBody := `<getResponse xmlns="https://adwords.google.com/api/adwords/cm/v201409"><rval><totalNumEntries>1</totalNumEntries><Page.Type>AdGroupAdPage</Page.Type><entries><adGroupId>16946665260</adGroupId><ad xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="ImageAd"><id>61965159780</id><url>http://example.com</url><displayUrl>example.com</displayUrl><Ad.Type>ImageAd</Ad.Type><image><type>IMAGE</type><referenceId>-2469457768847769600</referenceId><dimensions><key>SHRUNKEN</key><value><width>300</width><height>239</height></value></dimensions><dimensions><key>FULL</key><value><width>300</width><height>250</height></value></dimensions><dimensions><key>PREVIEW</key><value><width>120</width><height>100</height></value></dimensions><urls><key>SHRUNKEN</key><value>https://tpc.googlesyndication.com/pageadimg/imgad?id=CICAgKDjp67d3QEQrAIY7wEoATIIr-a3ag4_bPY</value></urls><urls><key>FULL</key><value>https://tpc.googlesyndication.com/pageadimg/imgad?id=CICAgKDjp67d3QEQrAIY-gEoATIImuEGs1sFFh8</value></urls><urls><key>PREVIEW</key><value>https://tpc.googlesyndication.com/pageadimg/imgad?id=CICAgKDjp67d3QEQeBhkKAEyCMbjS9Yi6TAi</value></urls><mimeType>IMAGE_JPEG</mimeType><fileSize>0</fileSize><Media.Type>Image</Media.Type></image><name>gfdhfghfgh</name></ad><status>ENABLED</status><approvalStatus>UNCHECKED</approvalStatus><trademarkDisapproved>false</trademarkDisapproved></entries></rval></getResponse>`
 	getResp := struct {
 		Size       int64      `xml:"rval>totalNumEntries"`
 		AdGroupAds AdGroupAds `xml:"rval>entries"`
 	}{}
+	fmt.Printf("%s\n", respBody)
 	err = xml.Unmarshal([]byte(respBody), &getResp)
 	if err != nil {
 		return adGroupAds, totalCount, err

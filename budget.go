@@ -16,14 +16,18 @@ func NewBudgetService(auth *Auth) *BudgetService {
 	return &BudgetService{Auth: *auth}
 }
 
+type BudgetAmount struct {
+	MicroAmount int64 `xml:"microAmount,omitempty"`
+}
+
 // A Budget represents an allotment of money to be spent over a fixed
 // period of time.
 type Budget struct {
 	Id         int64  `xml:"budgetId,omitempty"`           // A unique identifier
-	Name       string `xml:"name"`                         // A descriptive name
-	Period     string `xml:"period"`                       // The period to spend the budget
-	Amount     int64  `xml:"amount>microAmount"`           // The amount in cents
-	Delivery   string `xml:"deliveryMethod"`               // The rate at which the budget spent. valid options are STANDARD or ACCELERATED.
+	Name       string `xml:"name,omitempty"`                         // A descriptive name
+	Period     string `xml:"period,omitempty"`                       // The period to spend the budget
+	Amount     *BudgetAmount  `xml:"amount,omitempty"`           // The amount in cents
+	Delivery   string `xml:"deliveryMethod,omitempty"`               // The rate at which the budget spent. valid options are STANDARD or ACCELERATED.
 	References int64  `xml:"referenceCount,omitempty"`     // The number of campaigns using the budget
 	Shared     bool   `xml:"isExplicitlyShared,omitempty"` // If this budget was created to be shared across campaigns
 	Status     string `xml:"status,omitempty"`             // The status of the budget. can be ENABLED, REMOVED, UNKNOWN
