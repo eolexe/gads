@@ -34,7 +34,7 @@ type AdGroup struct {
 	Status                       string                         `xml:"status"`
 	Settings                     []AdSetting                    `xml:"settings,omitempty"`
 	BiddingStrategyConfiguration []BiddingStrategyConfiguration `xml:"biddingStrategyConfiguration"`
-	ContentBidCriterionTypeGroup *string                        `xml:"contentBidCriterionTypeGroup"`
+	ContentBidCriterionTypeGroup *string                        `xml:"contentBidCriterionTypeGroup,omitempty"`
 }
 
 type AdGroupOperations map[string][]AdGroup

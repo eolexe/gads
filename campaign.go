@@ -96,15 +96,15 @@ type BiddingScheme struct {
 
 type Bid struct {
 	Type         string  `xml:"http://www.w3.org/2001/XMLSchema-instance type,attr"`
-	Amount       float64   `xml:"bid>microAmount"`
-	CpcBidSource *string `xml:"cpcBidSource"`
-	CpmBidSource *string `xml:"cpmBidSource"`
+	Amount       int64 `xml:"bid>microAmount"`
+	CpcBidSource *string `xml:"cpcBidSource,omitempty"`
+	CpmBidSource *string `xml:"cpmBidSource,omitempty"`
 }
 
 type BiddingStrategyConfiguration struct {
 	StrategyId     int64          `xml:"biddingStrategyId,omitempty"`
-	StrategyName   string         `xml:"biddingStrategyName"`
-	StrategyType   string         `xml:"biddingStrategyType"`
+	StrategyName   string         `xml:"biddingStrategyName,omitempty"`
+	StrategyType   string         `xml:"biddingStrategyType,omitempty"`
 	StrategySource string         `xml:"biddingStrategySource,omitempty"`
 	Scheme         *BiddingScheme `xml:"biddingScheme,omitempty"`
 	Bids           []Bid          `xml:"bids"`
