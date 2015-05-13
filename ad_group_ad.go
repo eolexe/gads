@@ -17,17 +17,17 @@ type AppUrl struct {
 type TextAd struct {
 	AdGroupId            int64             `xml:"-"`
 	Id                   int64             `xml:"id,omitempty"`
-	Url                  string            `xml:"url"`
-	DisplayUrl           string            `xml:"displayUrl"`
+	Url                  string            `xml:"url,omitempty"`
+	DisplayUrl           string            `xml:"displayUrl,omitempty"`
 	FinalUrls            []string          `xml:"finalUrls,omitempty"`
 	FinalMobileUrls      []string          `xml:"finalMobileUrls,omitempty"`
 	FinalAppUrls         []AppUrl          `xml:"finalAppUrls,omitempty"`
 	TrackingUrlTemplate  string            `xml:"trackingUrlTemplate,omitempty"`
 	UrlCustomParameters  *CustomParameters `xml:"urlCustomParameters,omitempty"`
 	DevicePreference     int64             `xml:"devicePreference,omitempty"`
-	Headline             string            `xml:"headline"`
-	Description1         string            `xml:"description1"`
-	Description2         string            `xml:"description2"`
+	Headline             string            `xml:"headline,omitempty"`
+	Description1         string            `xml:"description1,omitempty"`
+	Description2         string            `xml:"description2,omitempty"`
 	Status               string            `xml:"-"`
 	ApprovalStatus       string            `xml:"-"`
 	DisapprovalReasons   []string          `xml:"-"`
@@ -35,27 +35,20 @@ type TextAd struct {
 	Labels               []Label           `xml:"-"`
 }
 
-type ImageAdUrls struct {
-	Key   string `xml:"key"`
-	Value string `xml:"value"`
-}
-
 type ImageAd struct {
 	AdGroupId            int64             `xml:"-"`
 	Id                   int64             `xml:"id,omitempty"`
-	Url                  string            `xml:"url"`
-	DisplayUrl           string            `xml:"displayUrl"`
+	Url                  string            `xml:"url,omitempty"`
+	DisplayUrl           string            `xml:"displayUrl,omitempty"`
 	FinalUrls            []string          `xml:"finalUrls,omitempty"`
 	FinalMobileUrls      []string          `xml:"finalMobileUrls,omitempty"`
 	FinalAppUrls         []AppUrl          `xml:"finalAppUrls,omitempty"`
 	TrackingUrlTemplate  string            `xml:"trackingUrlTemplate,omitempty"`
 	UrlCustomParameters  *CustomParameters `xml:"urlCustomParameters,omitempty"`
 	DevicePreference     int64             `xml:"devicePreference,omitempty"`
-	Image                int64             `xml:"imageId"`
-	Urls                 []*ImageAdUrls    `xml:"image>urls"`
-	MimeType             string            `xml:"image>mimeType"`
-	Name                 string            `xml:"name"`
-	AdToCopyImageFrom    int64             `xml:"adToCopyImageFrom"`
+	Image                Media             `xml:"image,omitempty"`
+	Name                 string            `xml:"name,omitempty"`
+	AdToCopyImageFrom    int64             `xml:"adToCopyImageFrom,omitempty"`
 	Status               string            `xml:"-"`
 	ApprovalStatus       string            `xml:"-"`
 	DisapprovalReasons   []string          `xml:"-"`
@@ -285,6 +278,7 @@ func (s *AdGroupAdService) Mutate(adGroupAdOperations AdGroupAdOperations) (adGr
 			)
 		}
 	}
+
 	mutation := struct {
 		XMLName xml.Name
 		Ops     []adGroupAdOperation `xml:"operations"`
@@ -295,6 +289,7 @@ func (s *AdGroupAdService) Mutate(adGroupAdOperations AdGroupAdOperations) (adGr
 		},
 		Ops: operations,
 	}
+
 	respBody, err := s.Auth.request(adGroupAdServiceUrl, "mutate", mutation)
 	if err != nil {
 		return adGroupAds, err

@@ -20,10 +20,27 @@ func (a1 AdGroupAds) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 				xml.Attr{xml.Name{"http://www.w3.org/2001/XMLSchema-instance", "type"}, "TextAd"},
 			},
 		})
-		e.EncodeElement(ad.Status, xml.StartElement{Name: xml.Name{"", "status"}})
-		e.EncodeElement(ad.Labels, xml.StartElement{Name: xml.Name{"", "labels"}})
+		if ad.Status != "" {
+			e.EncodeElement(ad.Status, xml.StartElement{Name: xml.Name{"", "status"}})
+		}
+		if len(ad.Labels) > 0 {
+			e.EncodeElement(ad.Labels, xml.StartElement{Name: xml.Name{"", "labels"}})
+		}
 	case ImageAd:
-		return ERROR_NOT_YET_IMPLEMENTED
+		ad := a.(ImageAd)
+		e.EncodeElement(ad.AdGroupId, xml.StartElement{Name: xml.Name{"", "adGroupId"}})
+		e.EncodeElement(ad, xml.StartElement{
+			xml.Name{"", "ad"},
+			[]xml.Attr{
+				xml.Attr{xml.Name{"http://www.w3.org/2001/XMLSchema-instance", "type"}, "ImageAd"},
+			},
+		})
+		if ad.Status != "" {
+			e.EncodeElement(ad.Status, xml.StartElement{Name: xml.Name{"", "status"}})
+		}
+		if len(ad.Labels) > 0 {
+			e.EncodeElement(ad.Labels, xml.StartElement{Name: xml.Name{"", "labels"}})
+		}
 	case TemplateAd:
 		return ERROR_NOT_YET_IMPLEMENTED
 	default:

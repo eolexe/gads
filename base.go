@@ -13,7 +13,7 @@ import (
 
 const (
 	baseUrl = "https://adwords.google.com/api/adwords/cm/v201409"
-	//	baseUrl = "http://127.0.0.1:4444"
+//		baseUrl   = "http://127.0.0.1:4444"
 	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201409"
 	//	reportUrl = "http://127.0.0.1:4444"
 )
@@ -200,6 +200,7 @@ func (a *Auth) request(serviceUrl ServiceUrl, action string, body interface{}) (
 			Body: soapReqBody{body},
 		},
 		"  ", "  ")
+
 	if err != nil {
 		return []byte{}, err
 	}

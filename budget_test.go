@@ -97,7 +97,7 @@ func TestBudget(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	t.Logf("found %d budgets\n", len(foundBudgets))
+//	t.Logf("found %d budgets\n", len(foundBudgets))
 	for _, b := range budgets {
 		func(budget Budget) {
 			for _, foundBudget := range foundBudgets {

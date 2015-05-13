@@ -81,7 +81,7 @@ func TestAdGroupCriterion(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Logf("%#v", adGroupCriterions)
+//	t.Logf("%#v", adGroupCriterions)
 
 	defer func() {
 		_, err = agcs.Mutate(AdGroupCriterionOperations{"REMOVE": adGroupCriterions})

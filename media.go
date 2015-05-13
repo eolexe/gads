@@ -14,12 +14,14 @@ func NewMediaService(auth *Auth) *MediaService {
 }
 
 type Dimensions struct {
-	Name   string `xml:"key"` // "FULL", "SHRUNKEN", "PREVIEW", "VIDEO_THUMBNAIL"
-	Width  int64  `xml:"value>width"`
-	Height int64  `xml:"value>height"`
+	Name   string `xml:"key,omitempty"` // "FULL", "SHRUNKEN", "PREVIEW", "VIDEO_THUMBNAIL"
+	Width  int64  `xml:"value>width,omitempty"`
+	Height int64  `xml:"value>height,omitempty"`
 }
 
 type ImageUrl struct {
+	Key   string `xml:"key,omitempty"`
+	Value string `xml:"value,omitempty"`
 }
 
 // Media represents an audio, image or video file.
@@ -50,14 +52,15 @@ type Media struct {
 	YouTubeVideoIdString                 string `xml:"youTubeVideoIdString,omitempty"`
 }
 
-func NewAudio(name, mediaType, mimeType string) (image Media) {
+func NewAudio(name, mediaType string) (image Media) {
 	return Media{
-		Name: name,
-		Type: "Audio",
+		Name:      name,
+		Type:      "Audio",
+		MediaType: mediaType,
 	}
 }
 
-func NewImage(name, mediaType, mimeType string, data []byte) (image Media) {
+func NewImage(name, mediaType string, data []byte) (image Media) {
 	imageData := base64.StdEncoding.EncodeToString(data)
 	return Media{
 		Name:      name,
@@ -67,9 +70,19 @@ func NewImage(name, mediaType, mimeType string, data []byte) (image Media) {
 	}
 }
 
+func NewImageWithoutDataEncoding(name, mediaType string, dataBase64 string) (image Media) {
+	return Media{
+		Name:      name,
+		Type:      "Image",
+		MediaType: mediaType,
+		Data:      dataBase64,
+	}
+}
+
 func NewVideo(mediaType string) (image Media) {
 	return Media{
-		Type: "Video",
+		Type:      "Video",
+		MediaType: mediaType,
 	}
 }
 

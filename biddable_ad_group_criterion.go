@@ -7,7 +7,7 @@ import (
 
 type BiddableAdGroupCriterion struct {
 	AdGroupId int64     `xml:"adGroupId"`
-	CriterionUse string `xml:"criterionUse"`
+	CriterionUse string `xml:"criterionUse,omitempty"`
 	Criterion Criterion `xml:"criterion"`
 
 	// BiddableAdGroupCriterion
@@ -23,7 +23,7 @@ type BiddableAdGroupCriterion struct {
 	QualityInfo *QualityInfo `xml:"qualityInfo,omitempty"`
 
 	BiddingStrategyConfiguration *BiddingStrategyConfiguration `xml:"biddingStrategyConfiguration,omitempty"`
-	BidModifier                  int64                         `xml:"bidModifier,omitempty"`
+	BidModifier                  float64                         `xml:"bidModifier,omitempty"`
 }
 
 func (bagc BiddableAdGroupCriterion) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
@@ -37,7 +37,10 @@ func (bagc BiddableAdGroupCriterion) MarshalXML(e *xml.Encoder, start xml.StartE
 	e.EncodeToken(start)
 	e.EncodeElement(&bagc.AdGroupId, xml.StartElement{Name: xml.Name{"", "adGroupId"}})
 	criterionMarshalXML(bagc.Criterion, e)
-	e.EncodeElement(&bagc.UserStatus, xml.StartElement{Name: xml.Name{"", "userStatus"}})
+
+	if(bagc.UserStatus != "") {
+		e.EncodeElement(&bagc.UserStatus, xml.StartElement{Name: xml.Name{"", "userStatus"}})
+	}
 	if bagc.DestinationUrl != "" {
 		e.EncodeElement(&bagc.DestinationUrl, xml.StartElement{Name: xml.Name{"", "destinationUrl"}})
 	}

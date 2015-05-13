@@ -18,7 +18,7 @@ func NewCampaignCriterionService(auth *Auth) *CampaignCriterionService {
 type CampaignCriterion struct {
 	CampaignId  int64     `xml:"campaignId"`
 	Criterion   Criterion `xml:"criterion"`
-	BidModifier float64   `xml:"bidModifier,omitempty"`
+	BidModifier *float64   `xml:"bidModifier,omitempty"`
 	Errors      []error   `xml:"-"`
 }
 
@@ -37,6 +37,9 @@ func (cc CampaignCriterion) MarshalXML(e *xml.Encoder, start xml.StartElement) e
 	e.EncodeElement(&isNegative, xml.StartElement{Name: xml.Name{"", "isNegative"}})
 	if err := criterionMarshalXML(cc.Criterion, e); err != nil {
 		return err
+	}
+	if(cc.BidModifier != nil) {
+		e.EncodeElement(&cc.BidModifier, xml.StartElement{Name: xml.Name{"", "bidModifier"}})
 	}
 	e.EncodeToken(start.End())
 	return nil

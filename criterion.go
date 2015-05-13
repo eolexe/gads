@@ -22,7 +22,7 @@ type AdScheduleCriterion struct {
 // AgeRangeType: AGE_RANGE_18_24, AGE_RANGE_25_34, AGE_RANGE_35_44, AGE_RANGE_45_54, AGE_RANGE_55_64, AGE_RANGE_65_UP, AGE_RANGE_UNDETERMINED, UNKNOWN
 type AgeRangeCriterion struct {
 	Id           int64  `xml:"id,omitempty"`
-	AgeRangeType string `xml:"ageRangeType"`
+	AgeRangeType string `xml:"ageRangeType,omitempty"`
 }
 
 type CarrierCriterion struct {
@@ -38,7 +38,7 @@ type ContentLabelCriterion struct {
 
 type GenderCriterion struct {
 	Id         int64  `xml:"id,omitempty"`
-	GenderType string `xml:"genderType"` // GenderType:  "GENDER_MALE", "GENDER_FEMALE", "GENDER_UNDETERMINED"
+	GenderType string `xml:"genderType,omitempty"` // GenderType:  "GENDER_MALE", "GENDER_FEMALE", "GENDER_UNDETERMINED"
 }
 
 type KeywordCriterion struct {
@@ -176,8 +176,8 @@ type UserListCriterion struct {
 type VerticalCriterion struct {
 	Id       int64    `xml:"id,omitempty"`
 	VerticalId int64    `xml:"verticalId"`
-	ParentId int64    `xml:"verticalParentId"`
-	Path     []string `xml:"path"`
+	ParentId int64    `xml:"verticalParentId,omitempty"`
+	Path     []string `xml:"path,omitempty"`
 }
 
 type WebpageCondition struct {
