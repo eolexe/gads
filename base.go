@@ -13,7 +13,7 @@ import (
 
 const (
 	baseUrl = "https://adwords.google.com/api/adwords/cm/v201409"
-//		baseUrl   = "http://127.0.0.1:4444"
+	//		baseUrl   = "http://127.0.0.1:4444"
 	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201409"
 	//	reportUrl = "http://127.0.0.1:4444"
 )
@@ -142,7 +142,7 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 	req.Header.Add("Content-length", contentLength)
 
 	if a.Testing != nil {
-		//		a.Testing.Logf("request ->\n%s\n%#v\n%s\n", req.URL.String(), req.Header, string(reqBody))
+		a.Testing.Logf("request ->\n%s\n%#v\n%s\n", req.URL.String(), req.Header, string(reqBody))
 	}
 	resp, err := a.Client.Do(req)
 	if err != nil {
@@ -151,7 +151,7 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 
 	respBody, err = ioutil.ReadAll(resp.Body)
 	if a.Testing != nil {
-		//		a.Testing.Logf("respBody ->\n%s\n%s\n", string(respBody), resp.Status)
+		a.Testing.Logf("respBody ->\n%s\n%s\n", string(respBody), resp.Status)
 	}
 
 	if resp.StatusCode == 400 || resp.StatusCode == 401 || resp.StatusCode == 403 || resp.StatusCode == 405 || resp.StatusCode == 500 {

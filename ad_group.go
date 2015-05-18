@@ -2,6 +2,7 @@ package gads
 
 import (
 	"encoding/xml"
+	"fmt"
 )
 
 type AdGroupService struct {
@@ -109,7 +110,9 @@ func (s *AdGroupService) Get(selector Selector) (adGroups []AdGroup, totalCount 
 	if s.Auth.Testing != nil {
 		s.Auth.Testing.Logf("%s\n", respBody)
 	}
-//	fmt.Printf("%s\n", respBody)
+	if s.Testing != nil {
+		fmt.Printf("%s\n", respBody)
+	}
 
 	err = xml.Unmarshal([]byte(respBody), &getResp)
 	if err != nil {

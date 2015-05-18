@@ -223,7 +223,9 @@ func (s AdGroupAdService) Get(selector Selector) (adGroupAds AdGroupAds, totalCo
 		Size       int64      `xml:"rval>totalNumEntries"`
 		AdGroupAds AdGroupAds `xml:"rval>entries"`
 	}{}
-	fmt.Printf("%s\n", respBody)
+	if s.Testing != nil {
+		fmt.Printf("%s\n", respBody)
+	}
 	err = xml.Unmarshal([]byte(respBody), &getResp)
 	if err != nil {
 		return adGroupAds, totalCount, err
