@@ -83,14 +83,22 @@ func TestDownloadCampaignPerformaceReport(t *testing.T) {
 		Selector: Selector{
 			Fields: []string{
 				"CampaignId",
+				"AverageCpc",
+				"AverageCpm",
+				"Cost",
 				"Clicks",
 				"Impressions",
-				"Week",
+				"Week", //Quarter, Month , Year, Week, Date
 			},
 			Predicates: predicates,
+			DateRange: &DateRange{
+				Min: "20150411", //YYYYMMDD
+				Max: "20150621", //YYYYMMDD
+			},
 		},
-		ReportName:             "Report #553f5265b3d84",
-		DateRangeType:          DATE_RANGE_ALL_TIME,
+		ReportName: "Report #553f5265b3d84",
+		//		DateRangeType:          DATE_RANGE_ALL_TIME,
+		DateRangeType:          DATE_RANGE_CUSTOM_DATE,
 		IncludeZeroImpressions: true,
 	}
 	report, err := ru.DownloadCampaignPerformaceReport(reportDefinition)

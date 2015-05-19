@@ -1,9 +1,6 @@
 package gads
 
-import (
-	"encoding/xml"
-	"fmt"
-)
+import "encoding/xml"
 
 const (
 	DATE_RANGE_TODAY               = "TODAY"
@@ -35,19 +32,46 @@ const (
 )
 
 type CampaignReport struct {
-	XMLName xml.Name       `xml:"report"`
-	Rows    []*CampaignRow `xml:"table>row"`
+	XMLName xml.Name     `xml:"report"`
+	Rows    CampaignRows `xml:"table>row"`
 }
 
 type CampaignRow struct {
 	XMLName     xml.Name `xml:"row"`
-	Day         string   `xml:"day,attr"`
+	Date        string   `xml:"day,attr"`
 	AvgCPC      float64  `xml:"avgCPC,attr"`
 	AvgCPM      float64  `xml:"avgCPM,attr"`
 	CampaignID  int64    `xml:"campaignID,attr"`
 	Clicks      int64    `xml:"clicks,attr"`
 	Cost        float64  `xml:"cost,attr"`
 	Impressions int64    `xml:"impressions,attr"`
+}
+
+type CampaignRows []*CampaignRow
+
+func (campaignRows *CampaignRows) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) error {
+	type Alias CampaignRow
+
+	row := &Alias{}
+	dec.DecodeElement(&row, &start)
+
+	for _, attr := range start.Attr {
+		switch attr.Name.Local {
+		case "week":
+			fallthrough
+		case "month":
+			fallthrough
+		case "day":
+			fallthrough
+		case "quarter":
+			fallthrough
+		case "year":
+			row.Date = attr.Value
+		}
+	}
+
+	*campaignRows = append(*campaignRows, (*CampaignRow)(row))
+	return nil
 }
 
 type BudgetReport struct {
@@ -108,27 +132,37 @@ func (s *ReportUtils) DownloadCampaignPerformaceReport(reportDefinition *ReportD
 		reportDefinition,
 	)
 
-	fmt.Println(string(respBody))
-
-	//	respBody := `<report>
-	//		<report-name name="Campaign Performance Report NAme" />
-	//		<date-range date="Feb 1, 2015-Jun 1, 2015" />
-	//		<table>
-	//			<columns>
-	//				<column name="campaignID" display="Campaign ID" />
-	//				<column name="clicks" display="Clicks" />
-	//				<column name="impressions" display="Impressions" />
-	//				<column name="week" display="Week" />
-	//			</columns>
-	//			<row day="20150201" campaignID="1111111" clicks="%v" cost="8" impressions="18"/>
-	//			<row day="20150215" campaignID="1111111" clicks="%v" cost="4" impressions="10"/>
-	//			<row day="20150230" campaignID="1111111" clicks="%v" cost="12" impressions="29"/>
-	//		</table>
-	//	</report>`
-
 	if err != nil {
 		return report, err
 	}
+
+	//	respBody := `<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+	//<report>
+	//	<report-name name="Report #553f5265b3d84"/>
+	//	<date-range date="Apr 11, 2015-Jun 21, 2015"/>
+	//	<table>
+	//		<columns>
+	//			<column display="Campaign ID" name="campaignID"/>
+	//			<column display="Avg. CPC" name="avgCPC"/>
+	//			<column display="Avg. CPM" name="avgCPM"/>
+	//			<column display="Cost" name="cost"/>
+	//			<column display="Clicks" name="clicks"/>
+	//			<column display="Impressions" name="impressions"/>
+	//			<column display="Week" name="week"/>
+	//		</columns>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-04-06"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-04-20"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-04-27"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-05-04"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-05-11"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-05-18"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-05-25"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-06-15"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-04-13"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-06-01"/>
+	//		<row avgCPC="0" avgCPM="0" campaignID="246257700" clicks="0" cost="0" impressions="0" week="2015-06-08"/>
+	//	</table>
+	//</report>`
 
 	report = CampaignReport{}
 	err = xml.Unmarshal([]byte(respBody), &report)
