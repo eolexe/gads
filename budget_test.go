@@ -16,7 +16,7 @@ func testBudget(t *testing.T) (Budget, func()) {
 				Budget{
 					Name:     "testbudget " + rand_str(10),
 					Period:   "DAILY",
-					Amount:   50000000,
+					Amount:   &BudgetAmount{MicroAmount: 50000000},
 					Delivery: "STANDARD",
 				},
 			},
@@ -42,13 +42,13 @@ func TestBudget(t *testing.T) {
 				Budget{
 					Name:     "testbudget " + rand_str(10),
 					Period:   "DAILY",
-					Amount:   50000000,
+					Amount:   &BudgetAmount{MicroAmount: 50000000},
 					Delivery: "STANDARD",
 				},
 				Budget{
 					Name:     "test budget " + rand_str(10),
 					Period:   "DAILY",
-					Amount:   50000000,
+					Amount:   &BudgetAmount{MicroAmount: 50000000},
 					Delivery: "STANDARD",
 				},
 			},
@@ -97,7 +97,7 @@ func TestBudget(t *testing.T) {
 		t.Fatal(err)
 	}
 
-//	t.Logf("found %d budgets\n", len(foundBudgets))
+	//	t.Logf("found %d budgets\n", len(foundBudgets))
 	for _, b := range budgets {
 		func(budget Budget) {
 			for _, foundBudget := range foundBudgets {

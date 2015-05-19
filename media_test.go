@@ -25,8 +25,8 @@ func TestMedia(t *testing.T) {
 	ms := testMediaService(t)
 	images, err := ms.Upload(
 		[]Media{
-			NewImage("image1", "IMAGE", "IMAGE_JPEG", body),
-			NewImage("image2", "IMAGE", "IMAGE_JPEG", body),
+			NewImage("image1", "IMAGE", body),
+			NewImage("image2", "IMAGE", body),
 		},
 	)
 	if err != nil {

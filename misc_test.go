@@ -2,9 +2,10 @@ package gads
 
 import (
 	"fmt"
-	"golang.org/x/net/context"
 	"io/ioutil"
 	"net/http"
+
+	"golang.org/x/net/context"
 )
 
 func ExampleMediaService_Upload() {
@@ -21,7 +22,7 @@ func ExampleMediaService_Upload() {
 	authConf, _ := NewCredentials(context.TODO())
 	ms := NewMediaService(&authConf.Auth)
 
-	images, err := ms.Upload([]Media{NewImage("image1", "IMAGE", "IMAGE_JPEG", body)})
+	images, err := ms.Upload([]Media{NewImage("image1", "IMAGE", body)})
 	if err != nil {
 		panic(err)
 	}

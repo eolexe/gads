@@ -2,6 +2,7 @@ package gads
 
 import (
 	"encoding/xml"
+	"fmt"
 )
 
 const (
@@ -106,6 +107,8 @@ func (s *ReportUtils) DownloadCampaignPerformaceReport(reportDefinition *ReportD
 	respBody, err := s.Auth.downloadReportRequest(
 		reportDefinition,
 	)
+
+	fmt.Println(string(respBody))
 
 	//	respBody := `<report>
 	//		<report-name name="Campaign Performance Report NAme" />
