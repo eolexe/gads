@@ -123,24 +123,24 @@ type CustomParameters struct {
 
 type Campaign struct {
 	Id                             int64                           `xml:"id,omitempty"`
-	Name                           string                          `xml:"name"`
-	Status                         string                          `xml:"status"`                  // Status: "ENABLED", "PAUSED", "REMOVED"
+	Name                           string                          `xml:"name,omitempty"`
+	Status                         string                          `xml:"status,omitempty"`                  // Status: "ENABLED", "PAUSED", "REMOVED"
 	ServingStatus                  *string                         `xml:"servingStatus,omitempty"` // ServingStatus: "SERVING", "NONE", "ENDED", "PENDING", "SUSPENDED"
-	StartDate                      string                          `xml:"startDate"`
+	StartDate                      string                          `xml:"startDate,omitempty"`
 	EndDate                        *string                         `xml:"endDate,omitempty"`
-	Budget                         *Budget                         `xml:"budget"`
-	ConversionOptimizerEligibility *conversionOptimizerEligibility `xml:"conversionOptimizerEligibility"`
+	Budget                         *Budget                         `xml:"budget,omitempty"`
+	ConversionOptimizerEligibility *conversionOptimizerEligibility `xml:"conversionOptimizerEligibility,omitempty"`
 	AdServingOptimizationStatus    string                          `xml:"adServingOptimizationStatus,omitempty"`
-	FrequencyCap                   *FrequencyCap                   `xml:"frequencyCap"`
-	Settings                       []CampaignSetting               `xml:"settings"`
+	FrequencyCap                   *FrequencyCap                   `xml:"frequencyCap,omitempty"`
+	Settings                       []CampaignSetting               `xml:"settings,omitempty"`
 	AdvertisingChannelType         string                          `xml:"advertisingChannelType,omitempty"`    // "UNKNOWN", "SEARCH", "DISPLAY", "SHOPPING"
 	AdvertisingChannelSubType      *string                         `xml:"advertisingChannelSubType,omitempty"` // "UNKNOWN", "SEARCH_MOBILE_APP", "DISPLAY_MOBILE_APP", "SEARCH_EXPRESS", "DISPLAY_EXPRESS"
-	NetworkSetting                 *NetworkSetting                 `xml:"networkSetting"`
-	Labels                         []Label                         `xml:"labels"`
-	BiddingStrategyConfiguration   *BiddingStrategyConfiguration   `xml:"biddingStrategyConfiguration"`
+	NetworkSetting                 *NetworkSetting                 `xml:"networkSetting,omitempty"`
+	Labels                         []Label                         `xml:"labels,omitempty"`
+	BiddingStrategyConfiguration   *BiddingStrategyConfiguration   `xml:"biddingStrategyConfiguration,omitempty"`
 	ForwardCompatibilityMap        *map[string]string              `xml:"forwardCompatibilityMap,omitempty"`
-	TrackingUrlTemplate            *string                         `xml:"trackingUrlTemplate"`
-	UrlCustomParameters            *CustomParameters               `xml:"urlCustomParametes"`
+	TrackingUrlTemplate            *string                         `xml:"trackingUrlTemplat,omitemptye"`
+	UrlCustomParameters            *CustomParameters               `xml:"urlCustomParametes,omitempty"`
 	Errors                         []error                         `xml:"-"`
 }
 
