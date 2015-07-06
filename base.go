@@ -156,10 +156,10 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 
 	if resp.StatusCode == 400 || resp.StatusCode == 401 || resp.StatusCode == 403 || resp.StatusCode == 405 || resp.StatusCode == 500 {
 		reportDownloadError := ReportDownloadError{}
-		//		fmt.Printf("unknown error ->\n%s\n", string(respBody))
+		fmt.Printf("unknown error ->\n%s\n", string(respBody))
 		err = xml.Unmarshal(respBody, &reportDownloadError)
 		if err != nil {
-			return respBody, err
+			return respBody, fmt.Errorf("%v \nRespone:%s" , err.Error(), respBody)
 		}
 		return respBody, reportDownloadError
 	}
@@ -252,9 +252,11 @@ func (a *Auth) request(serviceUrl ServiceUrl, action string, body interface{}) (
 		fmt.Printf("unknown error ->\n%s\n", string(soapResp.Body.Response))
 		err = xml.Unmarshal(soapResp.Body.Response, &fault)
 		if err != nil {
-			return respBody, err
+			return respBody, fmt.Errorf("%v \nRespone:%s" , err.Error(), soapResp.Body.Response)
 		}
+
 		return soapResp.Body.Response, &fault.Errors
 	}
+
 	return soapResp.Body.Response, err
 }

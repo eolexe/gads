@@ -55,10 +55,32 @@ type AdError struct {
 	Reason      string `xml:"reason"`
 }
 
+type PolicyViolationError struct {
+	FieldPath   string `xml:"fieldPath"`
+	Trigger     string `xml:"trigger"`
+	ErrorString string `xml:"errorString"`
+	Reason      string `xml:"reason"`
+}
+
+type ImageError struct {
+	FieldPath   string `xml:"fieldPath"`
+	Trigger     string `xml:"trigger"`
+	ErrorString string `xml:"errorString"`
+	Reason      string `xml:"reason"`
+}
+
 type ApiExceptionFault struct {
 	Message string        `xml:"message"`
 	Type    string        `xml:"ApplicationException.Type"`
 	Errors  []interface{} `xml:"errors"`
+}
+
+
+type DefaultError struct {
+	FieldPath   string `xml:"fieldPath"`
+	Trigger     string `xml:"trigger"`
+	ErrorString string `xml:"errorString"`
+	Reason      string `xml:"reason"`
 }
 
 func (aes *ApiExceptionFault) UnmarshalXML(dec *xml.Decoder, start xml.StartElement) (err error) {
@@ -101,8 +123,22 @@ func (aes *ApiExceptionFault) UnmarshalXML(dec *xml.Decoder, start xml.StartElem
 					e := AdError{}
 					dec.DecodeElement(&e, &start)
 					aes.Errors = append(aes.Errors, e)
+				case "PolicyViolationError":
+					e := PolicyViolationError{}
+					dec.DecodeElement(&e, &start)
+					aes.Errors = append(aes.Errors, e)
+				case "ImageError":
+					e := ImageError{}
+					dec.DecodeElement(&e, &start)
+					aes.Errors = append(aes.Errors, e)
 				default:
-					return fmt.Errorf("Unknown error type -> %s", start)
+					e := DefaultError{}
+					err := dec.DecodeElement(&e, &start)
+					aes.Errors = append(aes.Errors, e)
+
+					if err != nil{
+						return fmt.Errorf("Unknown error type -> %s", start)
+					}
 				}
 			case "reason":
 				break

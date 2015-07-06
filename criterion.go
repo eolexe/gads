@@ -63,6 +63,7 @@ type Location struct {
 	DisplayType     string     `xml:"displayType,omitempty"`
 	TargetingStatus string     `xml:"targetingStatus,omitempty"`
 	ParentLocations []Location `xml:"parentLocations,omitempty"`
+	CountryCode string 			`xml:"countryCode,omitempty"`
 }
 
 // MobileAppCategoryId:
