@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	baseUrl = "https://adwords.google.com/api/adwords/cm/v201409"
+	baseUrl = "https://adwords.google.com/api/adwords/cm/v201502"
 	//		baseUrl   = "http://127.0.0.1:4444"
-	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201409"
+	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201502"
 	//	reportUrl = "http://127.0.0.1:4444"
 )
 
@@ -159,7 +159,7 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 		fmt.Printf("unknown error ->\n%s\n", string(respBody))
 		err = xml.Unmarshal(respBody, &reportDownloadError)
 		if err != nil {
-			return respBody, fmt.Errorf("%v \nRespone:%s" , err.Error(), respBody)
+			return respBody, fmt.Errorf("%v \nRespone:%s", err.Error(), respBody)
 		}
 		return respBody, reportDownloadError
 	}
@@ -252,7 +252,7 @@ func (a *Auth) request(serviceUrl ServiceUrl, action string, body interface{}) (
 		fmt.Printf("unknown error ->\n%s\n", string(soapResp.Body.Response))
 		err = xml.Unmarshal(soapResp.Body.Response, &fault)
 		if err != nil {
-			return respBody, fmt.Errorf("%v \nRespone:%s" , err.Error(), soapResp.Body.Response)
+			return respBody, fmt.Errorf("%v \nRespone:%s", err.Error(), soapResp.Body.Response)
 		}
 
 		return soapResp.Body.Response, &fault.Errors
