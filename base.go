@@ -12,9 +12,9 @@ import (
 )
 
 const (
-	baseUrl = "https://adwords.google.com/api/adwords/cm/v201502"
+	baseUrl = "https://adwords.google.com/api/adwords/cm/v201509"
 	//		baseUrl   = "http://127.0.0.1:4444"
-	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201502"
+	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201509"
 	//	reportUrl = "http://127.0.0.1:4444"
 )
 
