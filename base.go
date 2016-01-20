@@ -2,6 +2,7 @@ package gads
 
 import (
 	"bytes"
+	"compress/gzip"
 	"encoding/xml"
 	"flag"
 	"fmt"
@@ -123,7 +124,6 @@ func selectorError() (err error) {
 
 func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err error) {
 	reqBody, err := xml.MarshalIndent(body, "  ", "  ")
-
 	if err != nil {
 		return []byte{}, err
 	}
@@ -144,12 +144,19 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 	if a.Testing != nil {
 		a.Testing.Logf("request ->\n%s\n%#v\n%s\n", req.URL.String(), req.Header, string(reqBody))
 	}
+
 	resp, err := a.Client.Do(req)
 	if err != nil {
 		return []byte{}, err
 	}
 
-	respBody, err = ioutil.ReadAll(resp.Body)
+	reader, err := gzip.NewReader(resp.Body)
+	if err != nil {
+		return []byte{}, err
+	}
+	defer reader.Close()
+
+	respBody, err = ioutil.ReadAll(reader)
 	if a.Testing != nil {
 		a.Testing.Logf("respBody ->\n%s\n%s\n", string(respBody), resp.Status)
 	}
