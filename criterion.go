@@ -64,6 +64,7 @@ type Location struct {
 	TargetingStatus string     `xml:"targetingStatus,omitempty"`
 	ParentLocations []Location `xml:"parentLocations,omitempty"`
 	CountryCode string 			`xml:"countryCode,omitempty"`
+	Reach int64
 }
 
 // MobileAppCategoryId:
