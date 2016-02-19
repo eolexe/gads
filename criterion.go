@@ -63,8 +63,8 @@ type Location struct {
 	DisplayType     string     `xml:"displayType,omitempty"`
 	TargetingStatus string     `xml:"targetingStatus,omitempty"`
 	ParentLocations []Location `xml:"parentLocations,omitempty"`
-	CountryCode string 			`xml:"countryCode,omitempty"`
-	Reach int64
+	CountryCode     string     `xml:"countryCode,omitempty"`
+	Reach           int64      `xml:"-"`
 }
 
 // MobileAppCategoryId:
@@ -119,9 +119,9 @@ type PlacementCriterion struct {
 //  HighEndMobile	30001
 //  Tablet	30002
 type PlatformCriterion struct {
-	Id           int64  `xml:"id,omitempty"`
-	PlatformName string `xml:"platformName,omitempty"`
-	Type string `xml:"type,omitempty"`
+	Id            int64  `xml:"id,omitempty"`
+	PlatformName  string `xml:"platformName,omitempty"`
+	Type          string `xml:"type,omitempty"`
 	CriterionType string `xml:"Criterion.Type,omitempty"`
 }
 
@@ -176,10 +176,10 @@ type UserListCriterion struct {
 }
 
 type VerticalCriterion struct {
-	Id       int64    `xml:"id,omitempty"`
+	Id         int64    `xml:"id,omitempty"`
 	VerticalId int64    `xml:"verticalId"`
-	ParentId int64    `xml:"verticalParentId,omitempty"`
-	Path     []string `xml:"path,omitempty"`
+	ParentId   int64    `xml:"verticalParentId,omitempty"`
+	Path       []string `xml:"path,omitempty"`
 }
 
 type WebpageCondition struct {
