@@ -7,16 +7,15 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"net"
 	"net/http"
 	"net/url"
 	"testing"
 )
 
 const (
-	baseUrl = "https://adwords.google.com/api/adwords/cm/v201509"
-	//		baseUrl   = "http://127.0.0.1:4444"
+	baseUrl   = "https://adwords.google.com/api/adwords/cm/v201509"
 	reportUrl = "https://adwords.google.com/api/adwords/reportdownload/v201509"
-	//	reportUrl = "http://127.0.0.1:4444"
 )
 
 type ServiceUrl struct {
@@ -122,6 +121,22 @@ func selectorError() (err error) {
 	return err
 }
 
+func (a *Auth) requestWithReconnect(req *http.Request, count int) (*http.Response, error) {
+	resp, err := a.Client.Do(req)
+	if err != nil {
+		if _, ok := err.(net.Error); ok {
+			if count < 3 {
+				count++
+				return a.requestWithReconnect(req, count)
+			}
+		}
+
+		return nil, err
+	}
+
+	return resp, err
+}
+
 func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err error) {
 	reqBody, err := xml.MarshalIndent(body, "  ", "  ")
 	if err != nil {
@@ -145,7 +160,8 @@ func (a *Auth) downloadReportRequest(body interface{}) (respBody []byte, err err
 		a.Testing.Logf("request ->\n%s\n%#v\n%s\n", req.URL.String(), req.Header, string(reqBody))
 	}
 
-	resp, err := a.Client.Do(req)
+	//resp, err := a.Client.Do(req)
+	resp, err := a.requestWithReconnect(req, 0)
 	if err != nil {
 		return []byte{}, err
 	}
@@ -222,7 +238,9 @@ func (a *Auth) request(serviceUrl ServiceUrl, action string, body interface{}) (
 	if a.Testing != nil {
 		a.Testing.Logf("request ->\n%s\n%#v\n%s\n", req.URL.String(), req.Header, string(reqBody))
 	}
-	resp, err := a.Client.Do(req)
+
+	//resp, err := a.Client.Do(req)
+	resp, err := a.requestWithReconnect(req, 0)
 	if err != nil {
 		return []byte{}, err
 	}
